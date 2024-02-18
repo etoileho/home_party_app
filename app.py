@@ -3,9 +3,9 @@ from github import Github
 import datetime
 import os
 
-ACCESS_TOKEN = os.getenv(ACCESS_TOKEN)
-REPO_NAME = os.getenv(REPO_NAME)
-PATH = os.getenv(PATH)
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+REPO_NAME = os.getenv('REPO_NAME')
+PATH = os.getenv('GITHUB_PATH', '')
 
 # GitHubに接続
 g = Github(ACCESS_TOKEN)
