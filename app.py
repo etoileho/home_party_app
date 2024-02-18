@@ -1,10 +1,11 @@
 import streamlit as st
 from github import Github
 import datetime
+import os
 
-ACCESS_TOKEN = ACCESS_TOKEN
-REPO_NAME = REPO_NAME
-PATH = PATH
+ACCESS_TOKEN = os.getenv(ACCESS_TOKEN)
+REPO_NAME = os.getenv(REPO_NAME)
+PATH = os.getenv(PATH)
 
 # GitHubに接続
 g = Github(ACCESS_TOKEN)
