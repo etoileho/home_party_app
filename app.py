@@ -24,7 +24,15 @@ def save_order_to_github(order_details):
         st.error(f'注文の保存中にエラーが発生しました: {e}')
 
 # ストリームリットUI
-st.title(':violet[保科家ホムパ！注文フォーム]:')
+st.title(':orange[保科家ホムパ！]')
+
+st.header(':blue[〇日程について]')
+st.balloons()
+st.text('開催日：3月16日　(時間は追って連絡します、ランチタイムからの予定です)')
+st.text('参加料は無し、みんなで食べ物を持ち寄ってやります！')
+st.text('ウェルカムドリンクを作るので、何を飲みたいか下の注文フォームで注文してください！')
+
+st.header(':blue[注文フォーム]')
 
 with st.form("order_form"):
     name = st.text_input('お名前')
