@@ -13,30 +13,33 @@ PATH = os.getenv('GITHUB_PATH', '')
 g = Github(ACCESS_TOKEN)
 repo = g.get_repo(REPO_NAME)
 
-def save_order_to_github(order_details, picture=None):
+def save_order_to_github(order_details, picture=None, name=""):
     try:
-        # 現在の日時をファイル名の一部として使用
+        # 名前を安全なファイル名に変換（スペースや特殊文字をアンダースコアに置換）
+        safe_name = "".join([c if c.isalnum() else "_" for c in name])
+
+        # 現在の日時と名前をファイル名の一部として使用
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        details_filename = f"{timestamp}.txt"
-        image_filename = f"{timestamp}_image.txt"  # 画像データのファイル名
+        details_filename = f"{safe_name}_{timestamp}.txt"
+        image_filename = f"{safe_name}_{timestamp}.jpg"  # 画像ファイル名
 
         # 注文の詳細をテキストファイルとして保存
         commit_message_details = f"New order: {details_filename}"
         repo.create_file(PATH + details_filename, commit_message_details, order_details)
 
-        # 画像が提供されている場合、Base64エンコードして保存
+        # 画像が提供されている場合、画像形式で保存
         if picture:
-            # Streamlitが提供するBytesIOオブジェクトから画像データを読み取り、Base64エンコードする
+            # Streamlitが提供するBytesIOオブジェクトから画像データを取得
             picture_bytes = picture.getvalue()
-            encoded_picture = base64.b64encode(picture_bytes).decode("utf-8")
-            
-            # エンコードされた画像データをテキストファイルとして保存
+
+            # GitHubに画像ファイルとして保存
             commit_message_image = f"New image: {image_filename}"
-            repo.create_file(PATH + image_filename, commit_message_image, encoded_picture)
+            repo.create_file(PATH + image_filename, commit_message_image, picture_bytes, branch="main")
 
         st.success('注文が成功しました！')
     except Exception as e:
         st.error(f'注文の保存中にエラーが発生しました: {e}')
+
 
 
 # ストリームリットUI
@@ -59,4 +62,4 @@ with st.form("order_form"):
     
 if submit_button:
     order_details = f"名前: {name}\nドリンク: {drink}\n特別な要望またはひとこと: {comments}"
-    save_order_to_github(order_details, picture)
+    save_order_to_github(order_details, picture, name)
