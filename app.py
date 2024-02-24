@@ -54,8 +54,6 @@ with st.form("order_form"):
     name = st.text_input('お名前')
     drink = st.selectbox('ドリンクを選択してください', ['ダージリンクーラー', 'バイオレットジンジャー', 'オレンジムーン', 'チェリースプリッツ'])
     picture = st.camera_input("パーティへの気持ちを写真で")
-    if picture:
-        st.image(picture)
     comments = st.text_area('特別な要望またはひとこと！')
     submit_button = st.form_submit_button('注文')
     
