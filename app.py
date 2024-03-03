@@ -52,7 +52,14 @@ st.caption('参加料は無し、みんなで食べ物を持ち寄ってやり�
 st.caption('ウェルカムドリンクを作るので、何を飲みたいか下の注文フォームで注文してください！')
 
 st.header(':blue[〇メニュー表]')
-st.image("https://github.com/etoileho/home_party/blob/main/drink_menu.jpg")
+# GitHubから非公開リポジトリ内の画像を取得
+image_path = PATH + "drink_menu.jpg"  # PATH変数を使用して正しい画像のパスを指定
+content_file = repo.get_contents(image_path, ref="main")  # 'ref'にはブランチ名を指定（デフォルトは'main'）
+image_data = base64.b64decode(content_file.content)  # base64エンコードされた内容をデコード
+image_bytes = BytesIO(image_data)  # BytesIOオブジェクトに変換
+
+# Streamlitで画像を表示
+st.image(image_bytes, caption='ドリンクメニュー')
 
 st.header(':blue[〇注文フォーム]')
 
