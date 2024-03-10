@@ -44,12 +44,7 @@ def save_order_to_github(order_details, picture=None, name=""):
 
 # ストリームリットUI
 st.title(':orange[保科家ホムパ！]')
-
-st.header(':blue[〇日程について]')
 st.balloons()
-st.caption('開催日：3月16日　(時間は追って連絡します、ランチタイムからの予定です)')
-st.caption('参加料は無し、みんなで食べ物を持ち寄ってやります！')
-st.caption('ウェルカムドリンクを作るので、何を飲みたいか下の注文フォームで注文してください！')
 
 st.header(':blue[〇メニュー表]')
 # GitHubから非公開リポジトリ内の画像を取得
@@ -65,8 +60,8 @@ st.header(':blue[〇注文フォーム]')
 
 with st.form("order_form"):
     name = st.text_input('お名前')
-    drink = st.selectbox('ドリンクを選択してください', ['ダージリンクーラー', 'バイオレットジンジャー', 'オレンジムーン', 'チェリースプリッツ'])
-    picture = st.camera_input("パーティへの気持ちを写真で")
+    drink = st.selectbox('ドリンクを選択してください', ['ダージリンクーラー', 'セイロンオレンジスクリューズ','バイオレットジンジャー', 'オレンジムーン',クランベリージンジャーマティーニ,'チェリースピリッツ','カシスオレンジ','カシスソーダ','セイロンソーダ','クランベリーソーダ','ハイボール','ジンジャーハイ','家主のきまぐれ','リクエスト(下の欄に記載)'])
+    picture = st.camera_input("パーティへの気持ちを写真で表現して！！")
     comments = st.text_area('特別な要望またはひとこと！')
     submit_button = st.form_submit_button('注文')
     
